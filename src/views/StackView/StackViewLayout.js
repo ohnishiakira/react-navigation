@@ -74,6 +74,20 @@ const animatedSubscribeValue = animatedValue => {
   }
 };
 
+const getDefaultStatusBarHeight = isLandscape => {
+  if (Platform.OS === 'ios') {
+    if (isLandscape && !Platform.isPad) {
+      return 0;
+    } else if (IS_IPHONE_X) {
+      return 44;
+    } else {
+      return 20;
+    }
+  } else {
+    return 0;
+  }
+};
+
 const getDefaultHeaderHeight = isLandscape => {
   if (Platform.OS === 'ios') {
     if (isLandscape && !Platform.isPad) {
@@ -111,6 +125,16 @@ class StackViewLayout extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const headerStyle =
+      props.navigationOptions != null &&
+      props.navigationOptions.headerStyle != null &&
+      props.navigationOptions.headerStyle;
+
+    const floatingHeaderHeight =
+      headerStyle != null
+        ? headerStyle.height + getDefaultStatusBarHeight(props.isLandscape)
+        : getDefaultHeaderHeight(props.isLandscape);
 
     this.state = {
       // Used when card's header is null and mode is float to make transition
