@@ -142,7 +142,7 @@ class StackViewLayout extends React.Component {
       // This is not a great heuristic here. We don't know synchronously
       // on mount what the header height is so we have just used the most
       // common cases here.
-      floatingHeaderHeight: getDefaultHeaderHeight(props.isLandscape),
+      floatingHeaderHeight,
     };
   }
 
